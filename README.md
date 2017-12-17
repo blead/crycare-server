@@ -36,7 +36,7 @@ Create and edit `config.js` in the same location to locally configure the server
   cp src/config/config.default.js src/config/config.js
   ```
 
-## Configuration Properties
+### Configuration Properties
 
 - `appId`: NETPIE application ID
 - `key`: NETPIE application key
