@@ -32,9 +32,9 @@ The default configuration file `config.default.js` is located in `config/`.
 
 Create and edit `config.js` in the same location to locally configure the server.
 
-	```shell
-	cp src/config/config.default.js src/config/config.js
-	```
+    ```shell
+    cp src/config/config.default.js src/config/config.js
+    ```
 
 ## Configuration Properties
 
