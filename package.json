@@ -1,0 +1,15 @@
+{
+  "name": "crycare-server",
+  "version": "0.0.1",
+  "description": "Server implementation for recognizing baby crying sounds received from remote devices",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "blead",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "microgear": "^0.8.1"
+  }
+}
