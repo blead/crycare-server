@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
 app.use(bodyParser.text());
 app.post('/api', (req, res, next) => {
   console.log(`[express] /api: ${req.body} (${req.body.length})`);
-  const data = req.body;
+  const data = req.body || '';
   const result = process(data);
   console.log(`[process] ${result}`);
   if(process(data)) {
