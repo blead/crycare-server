@@ -43,10 +43,12 @@ app.post('/api', (req, res, next) => {
     if(!state.isCrying) {
       state.isCrying = true;
       io.emit('message', 'startCrying');
+      gear.chat(targetAlias, 'startCrying');
     }
   } else if(state.isCrying) {
     state.isCrying = false;
     io.emit('message', 'stopCrying');
+    gear.chat(targetAlias, 'stopCrying');
   }
   res.end();
 });
