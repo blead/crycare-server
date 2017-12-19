@@ -42,6 +42,7 @@ Create and edit `config.js` in the same location to locally configure the server
 - `key`: NETPIE application key
 - `secret`: NETPIE application key secret
 - `alias`: NETPIE alias for the server
+- `targetAlias`: NETPIE alias for the device
 - `port`: The port on which the HTTP server will be listening e.g. `80`
 
 
