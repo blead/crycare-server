@@ -35,19 +35,21 @@ io.on('connection', (socket) => {
 
 app.use(bodyParser.text());
 app.post('/api', (req, res, next) => {
-  console.log(`[express] /api: ${req.body} (${req.body.length})`);
+  console.log(`[express] /api: (${req.body.length})`);
   const data = req.body || '';
-  const result = process(data);
-  console.log(`[process] ${result}`);
+  const { result, value } = process(data);
+  console.log(`[process] ${result} (${value})`);
   if(process(data)) {
     if(!state.isCrying) {
       state.isCrying = true;
       io.emit('message', 'startCrying');
+      console.log('[microgear] sending message: startCrying');
       gear.chat(targetAlias, 'startCrying');
     }
   } else if(state.isCrying) {
     state.isCrying = false;
     io.emit('message', 'stopCrying');
+    console.log('[microgear] sending message: stopCrying');
     gear.chat(targetAlias, 'stopCrying');
   }
   res.end();
