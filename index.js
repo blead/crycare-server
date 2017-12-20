@@ -11,8 +11,9 @@ const gear = microgear.create({ key, secret, alias });
 const app = express();
 const server = http.createServer(app);
 const io = Io(server);
+const MAX_COUNT = 25;
 let state = {
-  isCrying: false
+  cryCounter: 0
 };
 
 gear.on('connected', () => {
@@ -38,19 +39,27 @@ app.post('/api', (req, res, next) => {
   console.log(`[express] /api: (${req.body.length})`);
   const data = req.body || '';
   const { result, value } = process(data);
-  console.log(`[process] ${result} (${value})`);
+  console.log(`[process] ${result} (${state.cryCounter}) (${JSON.stringify(value)})`);
   if(result) {
-    if(!state.isCrying) {
-      state.isCrying = true;
+    if(state.cryCounter == 0) {
       io.emit('message', 'startCrying');
       console.log('[microgear] sending message: startCrying');
       gear.chat(targetAlias, 'startCrying');
     }
-  } else if(state.isCrying) {
-    state.isCrying = false;
-    io.emit('message', 'stopCrying');
-    console.log('[microgear] sending message: stopCrying');
-    gear.chat(targetAlias, 'stopCrying');
+    state.cryCounter++;
+  } else if(state.cryCounter > 0) {
+    state.cryCounter--;
+    if(state.cryCounter == 0) {
+      io.emit('message', 'stopCrying');
+      console.log('[microgear] sending message: stopCrying');
+      gear.chat(targetAlias, 'stopCrying');
+    }
+  }
+  if(state.cryCounter > MAX_COUNT) {
+    state.cryCounter = MAX_COUNT;
+  }
+  if(state.cryCounter < 0) {
+    state.cryCounter = 0;
   }
   res.end();
 });
