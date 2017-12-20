@@ -39,7 +39,7 @@ app.post('/api', (req, res, next) => {
   const data = req.body || '';
   const { result, value } = process(data);
   console.log(`[process] ${result} (${value})`);
-  if(process(data)) {
+  if(result) {
     if(!state.isCrying) {
       state.isCrying = true;
       io.emit('message', 'startCrying');
